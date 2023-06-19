@@ -8,6 +8,8 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PelatihanController;
 
 
 /*
@@ -20,11 +22,12 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//route untuk halaman depan
 
 Route::get('/', function () {
-    Alert::success('Selamat Datang');
-    return view('welcome');
+    return view('front');
 });
+Route::get('/pelatihan', [PelatihanController::class, 'index'])->middleware('auth');
 Route::get ('/salam', function(){
     return "Selamat pagi";
 }); // ini adalah routing untuk pemanggilan dirinya sendiri
