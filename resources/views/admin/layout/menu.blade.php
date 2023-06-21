@@ -21,6 +21,7 @@
                                     <a class="nav-link" href="{{url('admin/divisi')}}">Data Divisi</a>
                                     <a class="nav-link" href="{{url('admin/jabatan')}}">Data Jabatan</a>
                                     <a class="nav-link" href="{{url('admin/user')}}">Data Pengguna</a>
+                                    <a class="nav-link" href="{{url('admin/pendaftar')}}">Data Pendaftar</a>
                                 </nav>
                             </div>
                             @endif                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

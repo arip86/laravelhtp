@@ -8,6 +8,10 @@ class FrontController extends Controller
 {
     //
     public function index(){
+        // $pegawai = Pegawai::all();
+     
         return view ('front');
     }
+
+   
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Pegawai;
+use App\Models\Pelatihan;
+use DB;
+use App\Models\Materi;
 class PelatihanController extends Controller
 {
     /**
@@ -12,7 +15,14 @@ class PelatihanController extends Controller
     public function index()
     {
         //
-        return view ('pelatihan');
+        $pegawai = DB::table('pegawai')->get();
+        $materi = DB::table('materi')->get();
+        $pelatihan = Pelatihan::join('pegawai', 'pegawai.id', '=', 'pelatihan.pegawai_id')
+        ->join('materi', 'materi.id', '=', 'pelatihan.materi_id')
+        ->select('pegawai.nama as pegawai', 'materi.nama as materi', 'keterangan')
+        ->get();
+
+        return view ('pelatihan', compact('pelatihan', 'pegawai', 'materi'));
     }
 
     /**
@@ -28,7 +38,14 @@ class PelatihanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //isi datanya 
+        DB::table('pelatihan')->insert([
+            'pegawai_id' => $request->pegawai_id,
+            'materi_id' => $request->materi_id,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect('/');
     }
 
     /**

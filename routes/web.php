@@ -10,6 +10,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\PendaftaranController;
 
 
 /*
@@ -26,8 +27,15 @@ use App\Http\Controllers\PelatihanController;
 
 Route::get('/', function () {
     return view('front');
+
 });
-Route::get('/pelatihan', [PelatihanController::class, 'index'])->middleware('auth');
+
+//group untuk isi pelatihan
+Route::group(['middleware' => ['auth']], function(){
+Route::get('/pelatihan', [PelatihanController::class, 'index']);
+Route::post('/pelatihan-store', [PelatihanController::class, 'store']);
+});
+
 Route::get ('/salam', function(){
     return "Selamat pagi";
 }); // ini adalah routing untuk pemanggilan dirinya sendiri
@@ -87,6 +95,9 @@ Route::post('/jabatan/update', [JabatanController::class, 'update']);
 //ini adalah route untuk user
 Route::get('/user', [UserController::class, 'index']);
 
+
+Route::get('/pendaftar', [PendaftaranController::class, 'index']);
+
 });
 });
 //nantinya pegawai tersebut mengambil pelatihan dan pada table pelatihan bertambah
@@ -99,3 +110,5 @@ Route::get('/after_register', function(){
 //     return view ('admin/accesdenied');
 // });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/pegawaiapi', [PegawaiController::class, 'apiPegawai']);
+Route::get('/pegawaiapi/{id}', [PegawaiController::class, 'apiPegawaiDetail']);

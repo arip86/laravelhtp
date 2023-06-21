@@ -1,5 +1,6 @@
 @extends('frontend.index')
 @section('front')
+@if(Auth::user()->role != 'pengunjung')
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <section class="banner-area organic-breadcrumb">
@@ -19,31 +20,34 @@
         <div class="container">
    
 <h1 align="center">Isi Form Pendaftaran</h1>
-<form>
+<form action="{{url('pelatihan-store')}}" method="POST" enctype="multipart/form-data">
+  {{csrf_field()}}
   <div class="form-group row">
-    <label for="select" class="col-4 col-form-label">Select</label> 
+    <label for="select" class="col-4 col-form-label">Pegawai</label> 
     <div class="col-8">
-      <select id="select" name="select" class="custom-select">
-        <option value="rabbit">Rabbit</option>
-        <option value="duck">Duck</option>
-        <option value="fish">Fish</option>
+      <select id="select" name="pegawai_id" class="custom-select">
+        <option value="rabbit">pilih nama pegawai</option>
+        @foreach ($pegawai as $peg)
+        <option value="{{$peg->id}}">{{$peg->nama}}</option>
+        @endforeach
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label for="select1" class="col-4 col-form-label">Select</label> 
+    <label for="select1" class="col-4 col-form-label">Materi</label> 
     <div class="col-8">
-      <select id="select1" name="select1" class="custom-select">
-        <option value="rabbit">Rabbit</option>
-        <option value="duck">Duck</option>
-        <option value="fish">Fish</option>
+      <select id="select1" name="materi_id" class="custom-select">
+        <option value="rabbit">Pilih Materi</option>
+       @foreach ($materi as $mat)
+        <option value="{{$mat->id}}">{{$mat->nama}}</option>
+        @endforeach
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label for="textarea" class="col-4 col-form-label">Text Area</label> 
+    <label for="textarea" class="col-4 col-form-label">Keterangan</label> 
     <div class="col-8">
-      <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
+      <textarea id="textarea" name="keterangan" cols="40" rows="5" class="form-control"></textarea>
     </div>
   </div> 
   <div class="form-group row">
@@ -54,4 +58,7 @@
 </form>
 </div>
 </section>
+@else 
+@include('acces_denied3')
+@endif
 @endsection
